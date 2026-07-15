@@ -14,4 +14,5 @@ export {
   isNotFoundError,
   isWebflowAgentError,
 } from './errors.js';
+export { chunkItems, executeBulkChunked } from './bulk.js';
 export * from './tools/index.js';

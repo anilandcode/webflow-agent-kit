@@ -1,6 +1,6 @@
 # Build Log — webflow-agent-kit
 
-> **Started:** 2026-07-15 | **Phase 0:** Foundation
+> **Started:** 2026-07-15 | **Phase 0:** Foundation ✅ | **Phase 1:** CMS Power Tools ✅
 
 ## Session Summary
 
@@ -133,6 +133,7 @@
 
 ## Final Verification (2026-07-15)
 
+### Phase 0 Complete
 ```
 ✅ pnpm lint      — PASS (0 errors)
 ✅ pnpm typecheck — PASS (all 5 packages)
@@ -140,14 +141,44 @@
 ✅ pnpm build     — PASS (all 5 packages)
 ```
 
+### Phase 1 Complete (2026-07-15)
+
+**New files:**
+- `packages/core/src/bulk.ts` — `chunkItems()` and `executeBulkChunked()` for auto-batching >100 items
+- `packages/core/src/__tests__/bulk.test.ts` — 4 tests for chunking
+
+**Modified files:**
+- `packages/core/src/tools/collections.ts` — Added `createField`, `updateField`, `deleteField` (3 new tools)
+- `packages/core/src/tools/cms.ts` — Bulk chunking integrated into create/update/delete/publish; improved LLM disambiguation descriptions (staged vs live)
+- `packages/core/src/tools/index.ts` — Exported new field tools
+- `packages/core/src/index.ts` — Exported `chunkItems`, `executeBulkChunked`
+
+**Phase 1 verification:**
+```
+✅ pnpm lint      — PASS (0 errors)
+✅ pnpm typecheck — PASS (all 5 packages)
+✅ pnpm test      — PASS (15 tests, 4 test files)
+✅ pnpm build     — PASS (all 5 packages)
+```
+
 ### File Count Summary
 
 | Package | Files |
 |---|---|
-| `core` | 8 source, 3 test, 3 config |
+| `core` | 10 source, 4 test, 3 config |
 | `vercel-ai` | 1 source, 3 config |
 | `langchain` | 1 source, 3 config |
 | `mcp` | 2 source, 3 config |
 | `cli` | 2 source, 3 config |
 | Root | 7 config, 5 docs, 6 example, 4 CI |
-| **Total** | **~55 files** |
+| **Total** | **~58 files** |
+
+### Tool Count
+
+| Group | Tools | Status |
+|---|---|---|
+| Sites | 4 | ✅ |
+| Pages | 4 | ✅ |
+| CMS Items | 7 | ✅ (bulk-chunked, LLM-optimized) |
+| Collections + Fields | 5 | ✅ (3 new: create/update/delete field) |
+| **Total** | **20** | |
