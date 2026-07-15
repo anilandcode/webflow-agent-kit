@@ -6,9 +6,34 @@ import {
   createPageTools,
   createCmsTools,
   createCollectionTools,
+  createAssetTools,
+  createFormTools,
+  createCustomCodeTools,
+  createRedirectTools,
+  createSeoTools,
+  createWebhookTools,
+  createProductTools,
+  createOrderTools,
+  createInventoryTools,
+  createAuditLogTools,
 } from '@webflow-agent-kit/core';
 
-type ToolGroup = 'sites' | 'pages' | 'cms' | 'collections' | 'all';
+type ToolGroup =
+  | 'sites'
+  | 'pages'
+  | 'cms'
+  | 'collections'
+  | 'assets'
+  | 'forms'
+  | 'custom-code'
+  | 'redirects'
+  | 'seo'
+  | 'webhooks'
+  | 'products'
+  | 'orders'
+  | 'inventory'
+  | 'audit-logs'
+  | 'all';
 
 interface CoreTool {
   name: string;
@@ -26,6 +51,11 @@ function coreToLangChainTool(tool: CoreTool): DynamicStructuredTool {
   });
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function toCore(tools: Record<string, any>): Record<string, CoreTool> {
+  return tools as unknown as Record<string, CoreTool>;
+}
+
 export function toLangChainTools(
   kit: WebflowAgentKit,
   groups: ToolGroup[] = ['all'],
@@ -34,18 +64,20 @@ export function toLangChainTools(
 
   const toolGroups: Record<string, Record<string, CoreTool>> = {};
 
-  if (includeAll || groups.includes('sites')) {
-    toolGroups.sites = createSiteTools(kit.client) as unknown as Record<string, CoreTool>;
-  }
-  if (includeAll || groups.includes('pages')) {
-    toolGroups.pages = createPageTools(kit.client) as unknown as Record<string, CoreTool>;
-  }
-  if (includeAll || groups.includes('cms')) {
-    toolGroups.cms = createCmsTools(kit.client) as unknown as Record<string, CoreTool>;
-  }
-  if (includeAll || groups.includes('collections')) {
-    toolGroups.collections = createCollectionTools(kit.client) as unknown as Record<string, CoreTool>;
-  }
+  if (includeAll || groups.includes('sites')) toolGroups.sites = toCore(createSiteTools(kit.client));
+  if (includeAll || groups.includes('pages')) toolGroups.pages = toCore(createPageTools(kit.client));
+  if (includeAll || groups.includes('cms')) toolGroups.cms = toCore(createCmsTools(kit.client));
+  if (includeAll || groups.includes('collections')) toolGroups.collections = toCore(createCollectionTools(kit.client));
+  if (includeAll || groups.includes('assets')) toolGroups.assets = toCore(createAssetTools(kit.client));
+  if (includeAll || groups.includes('forms')) toolGroups.forms = toCore(createFormTools(kit.client));
+  if (includeAll || groups.includes('custom-code')) toolGroups['custom-code'] = toCore(createCustomCodeTools(kit.client));
+  if (includeAll || groups.includes('redirects')) toolGroups.redirects = toCore(createRedirectTools(kit.client));
+  if (includeAll || groups.includes('seo')) toolGroups.seo = toCore(createSeoTools(kit.client));
+  if (includeAll || groups.includes('webhooks')) toolGroups.webhooks = toCore(createWebhookTools(kit.client));
+  if (includeAll || groups.includes('products')) toolGroups.products = toCore(createProductTools(kit.client));
+  if (includeAll || groups.includes('orders')) toolGroups.orders = toCore(createOrderTools(kit.client));
+  if (includeAll || groups.includes('inventory')) toolGroups.inventory = toCore(createInventoryTools(kit.client));
+  if (includeAll || groups.includes('audit-logs')) toolGroups['audit-logs'] = toCore(createAuditLogTools(kit.client));
 
   const tools: CoreTool[] = [];
   for (const group of Object.values(toolGroups)) {

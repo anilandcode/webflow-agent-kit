@@ -1,6 +1,6 @@
 # Build Log — webflow-agent-kit
 
-> **Started:** 2026-07-15 | **Phase 0:** Foundation ✅ | **Phase 1:** CMS Power Tools ✅ | **Next.js Demo:** ✅
+> **Started:** 2026-07-15 | **Phase 0:** Foundation ✅ | **Phase 1:** CMS Power Tools ✅ | **Phase 2:** Full API Coverage ✅ | **Next.js Demo:** ✅
 
 ## Session Summary
 
@@ -180,5 +180,42 @@
 | Sites | 4 | ✅ |
 | Pages | 4 | ✅ |
 | CMS Items | 7 | ✅ (bulk-chunked, LLM-optimized) |
-| Collections + Fields | 5 | ✅ (3 new: create/update/delete field) |
-| **Total** | **20** | |
+| Collections + Fields | 5 | ✅ |
+| Assets | 5 | ✅ |
+| Forms | 5 | ✅ |
+| Custom Code | 3 | ✅ |
+| Redirects | 3 | ✅ (Enterprise only) |
+| SEO | 4 | ✅ (Enterprise only) |
+| Webhooks | 4 | ✅ |
+| Ecommerce Products | 4 | ✅ |
+| Ecommerce Orders | 5 | ✅ |
+| Ecommerce Inventory | 3 | ✅ |
+| Audit Logs | 1 | ✅ |
+| **Total** | **57** | |
+
+### Phase 2 Verification
+```
+✅ pnpm lint      — PASS (0 errors)
+✅ pnpm typecheck — PASS (all 5 packages)
+✅ pnpm test      — PASS (15 tests, 4 test files)
+✅ pnpm build     — PASS (all 5 packages + Next.js demo)
+```
+
+### New Phase 2 Files
+- `packages/core/src/tools/assets.ts` — 5 tools
+- `packages/core/src/tools/forms.ts` — 5 tools
+- `packages/core/src/tools/custom-code.ts` — 3 tools
+- `packages/core/src/tools/redirects.ts` — 3 tools
+- `packages/core/src/tools/seo.ts` — 4 tools
+- `packages/core/src/tools/webhooks.ts` — 4 tools
+- `packages/core/src/tools/ecommerce.ts` — 4 tools (products)
+- `packages/core/src/tools/orders.ts` — 5 tools
+- `packages/core/src/tools/inventory.ts` — 3 tools
+- `packages/core/src/tools/audit-logs.ts` — 1 tool
+
+### Modified Phase 2 Files
+- `packages/core/src/tools/index.ts` — exports all 14 groups
+- `packages/vercel-ai/src/index.ts` — 14 group support
+- `packages/langchain/src/index.ts` — 14 group support
+- `packages/mcp/src/server.ts` — 14 group support
+- `docs/tool-reference.md` — updated count

@@ -1,6 +1,6 @@
 # Tool Reference
 
-Complete reference for all tools in webflow-agent-kit.
+Complete reference for all 57 tools across 14 groups in webflow-agent-kit.
 
 ## Sites
 

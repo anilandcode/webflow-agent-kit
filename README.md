@@ -183,16 +183,15 @@ wfak tools
 | **Sites** | 4 | listSites, getSite, publishSite, getCustomDomains |
 | **Pages** | 4 | listPages, getPageMetadata, updatePageMetadata, updateStaticContent |
 | **CMS Items** | 7 | listItems, getItem, createItems, updateItems, deleteItems, publishItems, listLiveItems |
-| **Collections** | 2 | listCollections, getCollection |
-| **Assets** | *Phase 2* | listAssets, createAssetMetadata, deleteAsset |
-| **Forms** | *Phase 2* | listForms, getFormSchema, listFormSubmissions |
-| **Ecommerce** | *Phase 2* | Products, Orders, Inventory full CRUD |
-| **Custom Code** | *Phase 2* | Script registration site/page-level |
-| **SEO** | *Phase 2* | robots.txt, well-known files |
-| **Webhooks** | *Phase 2* | Webhook create/list/delete |
-| **Redirects** | *Phase 2* | 301 redirect management |
-| **Localization** | *Phase 2* | Locale listing, content translation |
-| **Audit Logs** | *Phase 2* | Workspace audit log retrieval |
+| **Collections + Fields** | 5 | listCollections, getCollection, createField, updateField, deleteField |
+| **Assets** | 5 | listAssets, createAsset, getAsset, deleteAsset, listAssetFolders |
+| **Forms** | 5 | listForms, getForm, listFormSubmissions, getSubmission, updateSubmission |
+| **Ecommerce** | 12 | Products (4), Orders (5), Inventory (3) — full CRUD + fulfill |
+| **Custom Code** | 3 | getCustomCode, upsertCustomCode, deleteCustomCode |
+| **SEO** | 4 | robots.txt (get/update), well-known files (get/upload) |
+| **Webhooks** | 4 | listWebhooks, createWebhook, getWebhook, deleteWebhook |
+| **Redirects** | 3 | listRedirects, createRedirect, deleteRedirect |
+| **Audit Logs** | 1 | listAuditLogs |
 
 ## Comparison
 

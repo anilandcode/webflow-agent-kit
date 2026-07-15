@@ -12,6 +12,16 @@ import {
   createPageTools,
   createCmsTools,
   createCollectionTools,
+  createAssetTools,
+  createFormTools,
+  createCustomCodeTools,
+  createRedirectTools,
+  createSeoTools,
+  createWebhookTools,
+  createProductTools,
+  createOrderTools,
+  createInventoryTools,
+  createAuditLogTools,
 } from '@webflow-agent-kit/core';
 
 type CoreTool = {
@@ -48,11 +58,25 @@ export async function createMcpServer(authConfig?: WebflowAuthConfig) {
   const config = authConfig ?? { type: 'env' as const };
   const kit = createWebflowAgentKit(config);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const tc = (tools: Record<string, any>): Record<string, CoreTool> =>
+    tools as unknown as Record<string, CoreTool>;
+
   const toolGroups: Record<string, Record<string, CoreTool>> = {
-    sites: createSiteTools(kit.client) as unknown as Record<string, CoreTool>,
-    pages: createPageTools(kit.client) as unknown as Record<string, CoreTool>,
-    cms: createCmsTools(kit.client) as unknown as Record<string, CoreTool>,
-    collections: createCollectionTools(kit.client) as unknown as Record<string, CoreTool>,
+    sites: tc(createSiteTools(kit.client)),
+    pages: tc(createPageTools(kit.client)),
+    cms: tc(createCmsTools(kit.client)),
+    collections: tc(createCollectionTools(kit.client)),
+    assets: tc(createAssetTools(kit.client)),
+    forms: tc(createFormTools(kit.client)),
+    'custom-code': tc(createCustomCodeTools(kit.client)),
+    redirects: tc(createRedirectTools(kit.client)),
+    seo: tc(createSeoTools(kit.client)),
+    webhooks: tc(createWebhookTools(kit.client)),
+    products: tc(createProductTools(kit.client)),
+    orders: tc(createOrderTools(kit.client)),
+    inventory: tc(createInventoryTools(kit.client)),
+    'audit-logs': tc(createAuditLogTools(kit.client)),
   };
 
   const tools = flattenToolGroups(toolGroups);
