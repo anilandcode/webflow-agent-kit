@@ -1,0 +1,20 @@
+{
+  "name": "vercel-ai-agent-example",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts"
+  },
+  "dependencies": {
+    "@webflow-agent-kit/core": "workspace:*",
+    "@webflow-agent-kit/vercel-ai": "workspace:*",
+    "@ai-sdk/anthropic": "^1.0.0",
+    "ai": "^4.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.0.0",
+    "typescript": "^5.7.0"
+  }
+}

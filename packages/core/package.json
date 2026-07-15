@@ -1,0 +1,40 @@
+{
+  "name": "@webflow-agent-kit/core",
+  "version": "0.0.1",
+  "description": "Typed tool definitions with Zod schemas wrapping Webflow Data API v2",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./tools/*": {
+      "types": "./dist/tools/*.d.ts",
+      "import": "./dist/tools/*.js",
+      "require": "./dist/tools/*.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "webflow-api": "^3.2.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "msw": "^2.7.0",
+    "tsup": "^8.3.0",
+    "vitest": "^3.0.0"
+  },
+  "peerDependencies": {
+    "typescript": ">=5.0"
+  }
+}

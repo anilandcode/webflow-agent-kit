@@ -1,0 +1,31 @@
+{
+  "name": "@webflow-agent-kit/vercel-ai",
+  "version": "0.0.1",
+  "description": "Plug-and-play adapter for Vercel AI SDK tool() format",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@webflow-agent-kit/core": "workspace:*"
+  },
+  "devDependencies": {
+    "ai": "^4.0.0",
+    "tsup": "^8.3.0"
+  },
+  "peerDependencies": {
+    "ai": ">=3.0.0"
+  }
+}
