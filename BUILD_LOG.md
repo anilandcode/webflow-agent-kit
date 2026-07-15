@@ -1,6 +1,6 @@
 # Build Log — webflow-agent-kit
 
-> **Started:** 2026-07-15 | **Phase 0:** Foundation ✅ | **Phase 1:** CMS Power Tools ✅
+> **Started:** 2026-07-15 | **Phase 0:** Foundation ✅ | **Phase 1:** CMS Power Tools ✅ | **Next.js Demo:** ✅
 
 ## Session Summary
 
