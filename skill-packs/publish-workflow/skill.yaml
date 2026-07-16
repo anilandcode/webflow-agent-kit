@@ -1,0 +1,43 @@
+id: publish-workflow
+displayName: Publish Workflow
+version: 0.1.0
+description: |
+  Finds staged/draft CMS items, generates a review summary,
+  and publishes approved items after human confirmation.
+
+requiredToolGroups:
+  - cms
+
+requiredScopes:
+  - cms:read
+  - cms:write
+
+inputSchema:
+  type: object
+  properties:
+    collectionId:
+      type: string
+      description: The CMS collection ID to publish from
+    approvedItemIds:
+      type: array
+      items:
+        type: string
+      description: List of item IDs to publish (empty for review-only mode)
+  required:
+    - collectionId
+
+outputSchema:
+  type: object
+  properties:
+    stagedCount:
+      type: number
+    publishedCount:
+      type: number
+    publishedIds:
+      type: array
+    auditRecords:
+      type: array
+
+riskLevel: review_required
+defaultMode: dry_run
+supportsRollback: true

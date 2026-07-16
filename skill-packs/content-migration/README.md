@@ -1,8 +1,13 @@
-# Content Migration Skill Pack
+# content-migration — EXPERIMENTAL
 
-Agent recipe for migrating CMS content between collections, sites, or external sources.
+> **Status:** Experimental. Not production-ready.
+> Safe implementation with dry-run, mutation plans, and audit records is pending.
+> Use the TypeScript packages directly for CMS operations:
+> ```bash
+> npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
+> ```
 
-## What It Does
+## What It Will Do
 
 1. Reads source CMS items (from a source collection or external JSON/CSV)
 2. Maps source fields to target collection fields
@@ -10,46 +15,8 @@ Agent recipe for migrating CMS content between collections, sites, or external s
 4. Validates the migration with a diff report
 5. Publishes migrated items (optional)
 
-## Dependencies
+## When Available
 
-```bash
-npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai ai @ai-sdk/anthropic
-```
+This skill will be implemented with the `@webflow-agent-kit/skills` framework: full manifest, dry-run default, confirmation gating, and audit records.
 
-## Usage
-
-```typescript
-import { createWebflowAgentKit } from '@webflow-agent-kit/core';
-import { toVercelAITools } from '@webflow-agent-kit/vercel-ai';
-import { generateText } from 'ai';
-import { anthropic } from '@ai-sdk/anthropic';
-
-export async function migrateContent(
-  sourceCollectionId: string,
-  targetCollectionId: string,
-  fieldMapping: Record<string, string>,
-) {
-  const kit = createWebflowAgentKit({ type: 'env' });
-  const tools = toVercelAITools(kit, ['cms', 'collections']);
-
-  const { text } = await generateText({
-    model: anthropic('claude-sonnet-4-5'),
-    tools,
-    maxSteps: 30,
-    system: `You are a content migration specialist. Follow this field mapping: ${JSON.stringify(fieldMapping)}. For each source item, create a corresponding target item with mapped fields. Report progress after each batch.`,
-    prompt: `Migrate all items from collection ${sourceCollectionId} to ${targetCollectionId} using the provided field mapping. Read all source items first, then create them in the target collection.`,
-  });
-
-  return text;
-}
-```
-
-## Skill Configuration
-
-```yaml
-name: content-migration
-version: 0.1.0
-description: Migrate CMS items from/to external sources or between collections
-tool_groups: [cms, collections]
-max_steps: 30
-```
+See [seo-audit](../seo-audit/) for an example of a fully implemented skill.

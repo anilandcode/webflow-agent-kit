@@ -1,0 +1,50 @@
+id: seo-audit
+displayName: SEO Audit
+version: 0.1.0
+description: |
+  Audits every page on a Webflow site for SEO metadata quality,
+  generates optimized titles and descriptions, and applies
+  bulk updates to pages and robots.txt configuration.
+
+requiredToolGroups:
+  - pages
+  - seo
+  - sites
+
+requiredScopes:
+  - pages:read
+  - pages:write
+  - sites:read
+  - sites:write
+
+inputSchema:
+  type: object
+  properties:
+    siteId:
+      type: string
+      description: The Webflow site ID to audit
+    localeId:
+      type: string
+      description: Optional locale ID for localized content
+    autoApply:
+      type: boolean
+      default: false
+      description: Whether to apply SEO updates automatically
+  required:
+    - siteId
+
+outputSchema:
+  type: object
+  properties:
+    pagesAudited:
+      type: number
+    pagesUpdated:
+      type: number
+    robotsTxtUpdated:
+      type: boolean
+    auditRecords:
+      type: array
+
+riskLevel: review_required
+defaultMode: dry_run
+supportsRollback: false
