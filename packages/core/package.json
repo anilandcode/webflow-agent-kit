@@ -11,12 +11,17 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    },
-    "./tools/*": {
-      "types": "./dist/tools/*.d.ts",
-      "import": "./dist/tools/*.js",
-      "require": "./dist/tools/*.cjs"
     }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "scripts": {
     "build": "tsup",

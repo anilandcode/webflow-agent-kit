@@ -6,7 +6,8 @@ import {
   type CallToolRequest,
   type Tool,
 } from '@modelcontextprotocol/sdk/types.js';
-import { createWebflowAgentKit, type WebflowAuthConfig } from '@webflow-agent-kit/core';
+import { createWebflowAgentKit } from '@webflow-agent-kit/core';
+import type { WebflowAuthConfig, MutationPolicy } from '@webflow-agent-kit/core';
 import {
   createSiteTools,
   createPageTools,
@@ -24,7 +25,7 @@ import {
   createAuditLogTools,
   createComponentTools,
 } from '@webflow-agent-kit/core';
-import { evaluatePolicy, DEFAULT_POLICY, type MutationPolicy } from '@webflow-agent-kit/core';
+import { evaluatePolicy, DEFAULT_POLICY } from '@webflow-agent-kit/core';
 
 type CoreTool = {
   name: string;

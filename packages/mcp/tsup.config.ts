@@ -11,5 +11,8 @@ export default defineConfig({
   clean: true,
   splitting: false,
   treeshake: true,
+  banner: {
+    js: '#!/usr/bin/env node',
+  },
   external: ['@modelcontextprotocol/sdk', '@webflow-agent-kit/core'],
 });

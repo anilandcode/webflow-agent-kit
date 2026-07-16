@@ -1,7 +1,7 @@
 {
   "name": "@webflow-agent-kit/google-adk",
   "version": "0.0.1",
-  "description": "Google Agent Development Kit (ADK) adapter for webflow-agent-kit",
+  "description": "Google ADK adapter for webflow-agent-kit — BETA (shape-compatible, integration not validated)",
   "type": "module",
   "main": "dist/index.cjs",
   "module": "dist/index.js",
@@ -13,6 +13,16 @@
       "require": "./dist/index.cjs"
     }
   },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
@@ -22,10 +32,14 @@
     "@webflow-agent-kit/core": "workspace:*"
   },
   "devDependencies": {
-    "tsup": "^8.3.0",
-    "zod": "^3.23.0"
+    "tsup": "^8.3.0"
   },
   "peerDependencies": {
     "zod": ">=3.23.0"
+  },
+  "peerDependenciesMeta": {
+    "zod": {
+      "optional": true
+    }
   }
 }
