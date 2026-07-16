@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.0.0",
+    "@ai-sdk/google": "^4.0.0",
+    "@ai-sdk/openai": "^4.0.0",
     "@webflow-agent-kit/core": "workspace:*",
     "@webflow-agent-kit/vercel-ai": "workspace:*",
     "ai": "^4.0.0",

@@ -15,4 +15,6 @@ export {
   isWebflowAgentError,
 } from './errors.js';
 export { chunkItems, executeBulkChunked } from './bulk.js';
+export { createAgentRunner } from './agent-runner.js';
+export type { AgentRunner, AgentRunnerOptions } from './agent-runner.js';
 export * from './tools/index.js';

@@ -1,7 +1,35 @@
 import { createWebflowAgentKit } from '@webflow-agent-kit/core';
 import { toVercelAITools } from '@webflow-agent-kit/vercel-ai';
-import { anthropic } from '@ai-sdk/anthropic';
 import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
+import { google } from '@ai-sdk/google';
+import { openai } from '@ai-sdk/openai';
+
+/**
+ * Auto-detects the LLM provider from environment variables.
+ * Priority: ANTHROPIC_API_KEY > GOOGLE_GENERATIVE_AI_API_KEY > OPENAI_API_KEY
+ *
+ * Set any ONE of these env vars and the demo uses that provider.
+ * Gemini is free tier — get a key at https://aistudio.google.com/apikey
+ */
+function getModel(): any {
+  if (process.env.ANTHROPIC_API_KEY) {
+    console.log('🤖 Using Anthropic (Claude)');
+    return anthropic('claude-sonnet-4-5');
+  }
+  if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
+    console.log('🤖 Using Google Gemini (free tier)');
+    return google('gemini-2.5-flash');
+  }
+  if (process.env.OPENAI_API_KEY) {
+    console.log('🤖 Using OpenAI');
+    return openai('gpt-4o');
+  }
+
+  // Default: Gemini with the standard env var name
+  console.log('🤖 Using Google Gemini (ensure GOOGLE_GENERATIVE_AI_API_KEY is set)');
+  return google('gemini-2.5-flash');
+}
 
 const BLOG_AGENT_SYSTEM_PROMPT = `You are a Webflow CMS blog manager. You have access to the following capabilities:
 
@@ -32,7 +60,7 @@ export async function POST(req: Request) {
     const tools = toVercelAITools(kit);
 
     const result = streamText({
-      model: anthropic('claude-sonnet-4-5'),
+      model: getModel(),
       system: BLOG_AGENT_SYSTEM_PROMPT,
       messages,
       tools,
