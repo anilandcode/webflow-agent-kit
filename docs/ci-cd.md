@@ -2,6 +2,19 @@
 
 All workflows run on GitHub Actions. Every PR must pass all checks before merge.
 
+## Workspace Boundaries
+
+The repository contains components with different toolchains:
+
+| Area | Toolchain | Managed By |
+|---|---|---|
+| `packages/*`, `examples/*` | pnpm workspace | Root `pnpm install`, `pnpm build`, `pnpm test` |
+| `docs-site/` | Astro Starlight (npm) | Independent `npm install && npm run build` |
+| `webflow-agent-kit-python/` | pip, pytest, ruff, mypy | `pip install -e '.[dev]'` |
+| `skill-packs/` | YAML + Markdown | Validated by `@webflow-agent-kit/skills` package + docs CI |
+
+Each area has its own CI jobs that run when its files change.
+
 ## Workflows
 
 ### `ci.yml` — TypeScript + MCP + Python + Docs

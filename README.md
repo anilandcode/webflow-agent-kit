@@ -72,7 +72,7 @@ const { text } = await generateText({
 | `@webflow-agent-kit/mcp` | **Beta** | Functional MCP server — parameter schemas stripped to basic shape (P0 fix pending) |
 | `@webflow-agent-kit/cli` | **Beta** | `auth` and `sites` commands stable; `run` command is a prototype |
 | `@webflow-agent-kit/google-adk` | **Experimental** | Shape-compatible adapter; no Google ADK SDK dependency validated |
-| `webflow-agent-kit-python` (in-repo) | **Planned** | Scaffold only — all adapters return placeholder data |
+| `webflow-agent-kit-python` (in-repo) | **Experimental / Pre-alpha** | Scaffold only — all adapters return `NotImplementedError`. Not published or supported for production. |
 
 ### Tool Safety
 

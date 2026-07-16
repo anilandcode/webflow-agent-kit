@@ -34,10 +34,48 @@ pnpm --filter @webflow-agent-kit/skills test
 
 ## Project Structure
 
+### Workspace Members (pnpm)
+
+These directories are managed by the pnpm monorepo (`pnpm-workspace.yaml`) and share a lockfile:
+
 ```
 packages/
 ├── core/          — 62 tools, auth, rate limiting, mutation policy
 ├── vercel-ai/     — Vercel AI SDK adapter
+├── langchain/     — LangChain adapter (beta)
+├── google-adk/    — Google ADK adapter (beta)
+├── mcp/           — MCP server (Claude Code, Codex, Cursor)
+├── cli/           — CLI runner (wfak)
+└── skills/        — Manifest-backed safe workflow packs
+
+examples/
+├── vercel-ai-agent/  — Next.js chat demo
+├── langchain-agent/  — LangChain agent demo
+├── mcp-claude-desktop/ — Claude Desktop MCP config
+└── cli-quickstart/   — CLI demo
+```
+
+Build, test, lint, and typecheck are run via `pnpm -r` from the root. Install dependencies once with `pnpm install`.
+
+### Independently Managed
+
+These directories use their own tooling and are not part of the pnpm workspace:
+
+```
+docs-site/       — Astro Starlight site. Build with `npm install && npm run build`.
+                 Not a pnpm workspace member. Uses its own package.json and lockfile.
+
+webflow-agent-kit-python/ — Python companion (experimental / pre-alpha).
+                 Uses pip, pytest, ruff, mypy, build, and twine.
+                 Not a pnpm workspace member. Not published to PyPI.
+
+skill-packs/     — Source documentation and manifests for reusable workflows.
+                 Validated by the @webflow-agent-kit/skills TypeScript package.
+                 Each pack has a skill.yaml manifest, src/ implementation,
+                 and prompts/ system prompt. Docs CI validates these files.
+```
+
+### Commit Convention
 ├── langchain/     — LangChain adapter (beta)
 ├── google-adk/    — Google ADK adapter (beta)
 ├── mcp/           — MCP server (Claude Code, Codex, Cursor)
