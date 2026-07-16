@@ -14,7 +14,7 @@ Audits every page on a site, generates optimized SEO metadata, and bulk-applies 
 // Max steps: 20
 ```
 
-[View skill pack →](https://github.com/anilpervaiz/webflow-agent-kit/tree/main/skill-packs/seo-audit)
+[View skill pack →](https://github.com/anilandcode/webflow-agent-kit/tree/main/skill-packs/seo-audit)
 
 ## Content Migration
 
@@ -25,7 +25,7 @@ Migrates CMS items between collections or from external sources (JSON/CSV).
 // Max steps: 30
 ```
 
-[View skill pack →](https://github.com/anilpervaiz/webflow-agent-kit/tree/main/skill-packs/content-migration)
+[View skill pack →](https://github.com/anilandcode/webflow-agent-kit/tree/main/skill-packs/content-migration)
 
 ## Publish Workflow
 
@@ -36,7 +36,7 @@ Staged → review → publish with human-in-the-loop approval.
 // Max steps: 10
 ```
 
-[View skill pack →](https://github.com/anilpervaiz/webflow-agent-kit/tree/main/skill-packs/publish-workflow)
+[View skill pack →](https://github.com/anilandcode/webflow-agent-kit/tree/main/skill-packs/publish-workflow)
 
 ## Ecommerce Sync
 
@@ -47,4 +47,4 @@ Syncs inventory levels between Webflow and external systems (Shopify, CSV).
 // Max steps: 30
 ```
 
-[View skill pack →](https://github.com/anilpervaiz/webflow-agent-kit/tree/main/skill-packs/ecommerce-sync)
+[View skill pack →](https://github.com/anilandcode/webflow-agent-kit/tree/main/skill-packs/ecommerce-sync)

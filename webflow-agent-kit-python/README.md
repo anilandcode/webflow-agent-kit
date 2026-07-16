@@ -71,4 +71,4 @@ kit = WebflowAgentKit(access_token="your-oauth-token")
 
 ## Repo
 
-This is the Python companion to [webflow-agent-kit](https://github.com/anilpervaiz/webflow-agent-kit).
+This is the Python companion to [webflow-agent-kit](https://github.com/anilandcode/webflow-agent-kit).

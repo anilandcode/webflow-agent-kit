@@ -119,7 +119,7 @@
 - [ ] Add core tests with MSW mocks
 - [ ] Build all packages: `pnpm build`
 - [ ] Initialize git repo and make first commit
-- [ ] Create GitHub repo `anilpervaiz/webflow-agent-kit`
+- [ ] Create GitHub repo `anilandcode/webflow-agent-kit`
 - [ ] Push to GitHub
 
 ## Known Issues

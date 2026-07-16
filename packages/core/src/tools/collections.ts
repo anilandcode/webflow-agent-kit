@@ -162,13 +162,7 @@ export function createDeleteFieldTool(client: WebflowClient) {
       collectionId: z.string().describe('The collection ID'),
       fieldId: z.string().describe('The field ID to delete'),
     }),
-    execute: async ({
-      collectionId,
-      fieldId,
-    }: {
-      collectionId: string;
-      fieldId: string;
-    }) => {
+    execute: async ({ collectionId, fieldId }: { collectionId: string; fieldId: string }) => {
       await client.collections.fields.delete(collectionId, fieldId);
       return { deleted: true, fieldId };
     },

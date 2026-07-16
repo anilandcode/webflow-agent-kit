@@ -67,7 +67,9 @@ export function createCreateItemsTool(client: WebflowClient) {
             isDraft: z.boolean().optional().default(true).describe('Whether to create as draft'),
           }),
         )
-        .describe('Array of items to create (up to 100 recommended, batches handled automatically)'),
+        .describe(
+          'Array of items to create (up to 100 recommended, batches handled automatically)',
+        ),
       publishImmediately: z
         .boolean()
         .optional()
@@ -89,7 +91,9 @@ export function createCreateItemsTool(client: WebflowClient) {
       for (const chunk of chunks) {
         const itemsPayload = chunk.map((i) => ({ fieldData: i.fieldData, isDraft: i.isDraft }));
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const created = await client.collections.items.createItem(collectionId, { items: itemsPayload } as any);
+        const created = await client.collections.items.createItem(collectionId, {
+          items: itemsPayload,
+        } as any);
         allCreated.push(created);
       }
 
@@ -178,13 +182,7 @@ export function createDeleteItemsTool(client: WebflowClient) {
       collectionId: z.string().describe('The Webflow collection ID'),
       itemIds: z.array(z.string()).describe('Array of item IDs to delete (auto-batched if >100)'),
     }),
-    execute: async ({
-      collectionId,
-      itemIds,
-    }: {
-      collectionId: string;
-      itemIds: string[];
-    }) => {
+    execute: async ({ collectionId, itemIds }: { collectionId: string; itemIds: string[] }) => {
       const chunks = chunkItems(itemIds, 100);
       for (const chunk of chunks) {
         await client.collections.items.deleteItems(collectionId, {
@@ -205,13 +203,7 @@ export function createPublishItemsTool(client: WebflowClient) {
       collectionId: z.string().describe('The Webflow collection ID'),
       itemIds: z.array(z.string()).describe('Item IDs to publish (auto-batched if >100)'),
     }),
-    execute: async ({
-      collectionId,
-      itemIds,
-    }: {
-      collectionId: string;
-      itemIds: string[];
-    }) => {
+    execute: async ({ collectionId, itemIds }: { collectionId: string; itemIds: string[] }) => {
       const chunks = chunkItems(itemIds, 100);
       for (const chunk of chunks) {
         await client.collections.items.publishItem(collectionId, { itemIds: chunk });

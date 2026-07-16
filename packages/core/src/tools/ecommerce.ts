@@ -71,7 +71,11 @@ export function createCreateProductTool(client: WebflowClient) {
         )
         .optional()
         .describe('Product variant options'),
-      publishStatus: z.enum(['staging', 'live']).optional().default('staging').describe('Publish status'),
+      publishStatus: z
+        .enum(['staging', 'live'])
+        .optional()
+        .default('staging')
+        .describe('Publish status'),
     }),
     execute: async ({
       siteId,
@@ -91,7 +95,11 @@ export function createCreateProductTool(client: WebflowClient) {
       currency: string;
       description?: string;
       mainImage?: string;
-      skuProperties?: Array<{ id: string; name: string; enum: Array<{ id: string; name: string; slug: string }> }>;
+      skuProperties?: Array<{
+        id: string;
+        name: string;
+        enum: Array<{ id: string; name: string; slug: string }>;
+      }>;
       publishStatus: string;
     }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

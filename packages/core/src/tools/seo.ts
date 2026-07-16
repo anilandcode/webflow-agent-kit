@@ -57,7 +57,11 @@ export function createGetWellKnownFilesTool(_client: WebflowClient) {
     }),
     execute: async ({ siteId }: { siteId: string }) => {
       // wellKnown has no get — list available files through the error-free path
-      return { siteId, message: 'Use the individual file operations. Well-known files include apple-app-site-association, assetlinks.json, etc.' };
+      return {
+        siteId,
+        message:
+          'Use the individual file operations. Well-known files include apple-app-site-association, assetlinks.json, etc.',
+      };
     },
   };
 }
@@ -69,7 +73,9 @@ export function createUploadWellKnownFileTool(client: WebflowClient) {
       'Upload a well-known file to a site. Supports .txt, .json, and .noext extensions. Max 100kb per file, max 30 files total. ⚠️ Enterprise only.',
     inputSchema: z.object({
       siteId: z.string().describe('The Webflow site ID'),
-      fileName: z.string().describe('File name with extension (e.g., apple-app-site-association.txt)'),
+      fileName: z
+        .string()
+        .describe('File name with extension (e.g., apple-app-site-association.txt)'),
       fileData: z.string().describe('File contents'),
       contentType: z.string().optional().describe('Content type (e.g., application/json)'),
     }),

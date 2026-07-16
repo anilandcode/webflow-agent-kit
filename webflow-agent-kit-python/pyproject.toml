@@ -33,4 +33,4 @@ langchain = ["langchain-core>=0.3.0"]
 crewai = ["crewai>=0.1.0"]
 
 [project.urls]
-Homepage = "https://github.com/anilpervaiz/webflow-agent-kit"
+Homepage = "https://github.com/anilandcode/webflow-agent-kit"

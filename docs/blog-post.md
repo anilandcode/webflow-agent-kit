@@ -45,7 +45,7 @@ If you use Webflow and AI agents, try it out:
 npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
 ```
 
-[GitHub →](https://github.com/anilpervaiz/webflow-agent-kit)
+[GitHub →](https://github.com/anilandcode/webflow-agent-kit)
 
 ---
 

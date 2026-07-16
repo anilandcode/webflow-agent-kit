@@ -39,8 +39,10 @@ export function createAgentRunner(auth: AgentRunnerOptions): AgentRunner {
   return {
     kit,
     getProviderInfo: () => {
-      if (process.env.ANTHROPIC_API_KEY) return { provider: 'anthropic', model: 'claude-sonnet-4-5' };
-      if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) return { provider: 'google', model: 'gemini-2.5-flash' };
+      if (process.env.ANTHROPIC_API_KEY)
+        return { provider: 'anthropic', model: 'claude-sonnet-4-5' };
+      if (process.env.GOOGLE_GENERATIVE_AI_API_KEY)
+        return { provider: 'google', model: 'gemini-2.5-flash' };
       if (process.env.OPENAI_API_KEY) return { provider: 'openai', model: 'gpt-4o' };
       return { provider: 'google', model: 'gemini-2.5-flash' };
     },

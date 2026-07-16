@@ -4,7 +4,8 @@ import type { WebflowClient } from 'webflow-api';
 export function createListFormsTool(client: WebflowClient) {
   return {
     name: 'webflow_list_forms',
-    description: 'List all forms on a Webflow site. Use to discover form IDs before reading submissions.',
+    description:
+      'List all forms on a Webflow site. Use to discover form IDs before reading submissions.',
     inputSchema: z.object({
       siteId: z.string().describe('The Webflow site ID'),
     }),
@@ -52,7 +53,7 @@ export function createListFormSubmissionsTool(client: WebflowClient) {
       return response;
     },
   };
-};
+}
 
 export function createGetSubmissionTool(client: WebflowClient) {
   return {
@@ -71,7 +72,8 @@ export function createGetSubmissionTool(client: WebflowClient) {
 export function createUpdateSubmissionTool(client: WebflowClient) {
   return {
     name: 'webflow_update_form_submission',
-    description: 'Update fields on a form submission. Use to add internal notes or change submission state.',
+    description:
+      'Update fields on a form submission. Use to add internal notes or change submission state.',
     inputSchema: z.object({
       formSubmissionId: z.string().describe('The form submission ID'),
       fieldData: z.record(z.unknown()).describe('Updated field data'),

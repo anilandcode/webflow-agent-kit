@@ -6,7 +6,7 @@ Thanks for contributing! Here's how to get set up.
 
 ```bash
 # Clone
-git clone https://github.com/anilpervaiz/webflow-agent-kit.git
+git clone https://github.com/anilandcode/webflow-agent-kit.git
 cd webflow-agent-kit
 
 # Install dependencies
@@ -83,4 +83,4 @@ We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ## Questions?
 
-Open a [discussion](https://github.com/anilpervaiz/webflow-agent-kit/discussions) or [issue](https://github.com/anilpervaiz/webflow-agent-kit/issues).
+Open a [discussion](https://github.com/anilandcode/webflow-agent-kit/discussions) or [issue](https://github.com/anilandcode/webflow-agent-kit/issues).

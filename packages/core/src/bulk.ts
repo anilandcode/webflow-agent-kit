@@ -1,9 +1,6 @@
 const CMS_BATCH_MAX = 100;
 
-export function chunkItems<T>(
-  items: T[],
-  chunkSize: number = CMS_BATCH_MAX,
-): T[][] {
+export function chunkItems<T>(items: T[], chunkSize: number = CMS_BATCH_MAX): T[][] {
   const chunks: T[][] = [];
   for (let i = 0; i < items.length; i += chunkSize) {
     chunks.push(items.slice(i, i + chunkSize));

@@ -105,13 +105,7 @@ export function createGetComponentPropertiesTool(client: WebflowClient) {
       siteId: z.string().describe('The Webflow site ID'),
       componentId: z.string().describe('The component ID'),
     }),
-    execute: async ({
-      siteId,
-      componentId,
-    }: {
-      siteId: string;
-      componentId: string;
-    }) => {
+    execute: async ({ siteId, componentId }: { siteId: string; componentId: string }) => {
       const properties = await client.components.getProperties(siteId, componentId);
       return { properties };
     },

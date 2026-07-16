@@ -10,13 +10,7 @@ export function createGetInventoryTool(client: WebflowClient) {
       skuCollectionId: z.string().describe('The SKU collection ID (use listCollections to find)'),
       skuId: z.string().describe('The SKU ID'),
     }),
-    execute: async ({
-      skuCollectionId,
-      skuId,
-    }: {
-      skuCollectionId: string;
-      skuId: string;
-    }) => {
+    execute: async ({ skuCollectionId, skuId }: { skuCollectionId: string; skuId: string }) => {
       const inventory = await client.inventory.list(skuCollectionId, skuId);
       return { inventory };
     },
@@ -31,9 +25,15 @@ export function createUpdateInventoryTool(client: WebflowClient) {
     inputSchema: z.object({
       skuCollectionId: z.string().describe('The SKU collection ID'),
       skuId: z.string().describe('The SKU ID'),
-      inventoryType: z.enum(['finite', 'infinite']).optional().describe('Set to infinite for unlimited stock'),
+      inventoryType: z
+        .enum(['finite', 'infinite'])
+        .optional()
+        .describe('Set to infinite for unlimited stock'),
       quantity: z.number().min(0).optional().describe('Absolute quantity to set'),
-      updateQuantity: z.number().optional().describe('Incremental adjustment (+add stock, -remove stock)'),
+      updateQuantity: z
+        .number()
+        .optional()
+        .describe('Incremental adjustment (+add stock, -remove stock)'),
     }),
     execute: async ({
       skuCollectionId,

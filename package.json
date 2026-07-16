@@ -16,7 +16,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/anilpervaiz/webflow-agent-kit"
+    "url": "https://github.com/anilandcode/webflow-agent-kit"
   },
   "scripts": {
     "build": "pnpm -r run build",

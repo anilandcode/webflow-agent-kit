@@ -1,9 +1,7 @@
 import { WebflowClient } from 'webflow-api';
 
 export type WebflowAuthConfig =
-  | { type: 'site-token'; token: string }
-  | { type: 'oauth'; accessToken: string }
-  | { type: 'env' };
+  { type: 'site-token'; token: string } | { type: 'oauth'; accessToken: string } | { type: 'env' };
 
 export class WebflowAuthError extends Error {
   constructor(message: string) {

@@ -7,7 +7,13 @@ export function createListSitesTool(client: WebflowClient) {
     description:
       'List all Webflow sites in your workspace. Returns site IDs, names, domains, and published status.',
     inputSchema: z.object({
-      limit: z.number().min(1).max(100).optional().default(50).describe('Max sites to return (1-100)'),
+      limit: z
+        .number()
+        .min(1)
+        .max(100)
+        .optional()
+        .default(50)
+        .describe('Max sites to return (1-100)'),
       offset: z.number().min(0).optional().default(0).describe('Pagination offset'),
     }),
     execute: async ({ limit, offset }: { limit: number; offset: number }) => {

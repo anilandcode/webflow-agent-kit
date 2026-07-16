@@ -29,7 +29,10 @@ export function createUpsertCustomCodeTool(client: WebflowClient) {
             id: z.string().describe('Script identifier (e.g., "analytics", "chat-widget")'),
             location: z.enum(['header', 'footer']).describe('Where to inject the script'),
             version: z.string().describe('Script version string'),
-            attributes: z.record(z.string()).optional().describe('Additional attributes for the script'),
+            attributes: z
+              .record(z.string())
+              .optional()
+              .describe('Additional attributes for the script'),
           }),
         )
         .describe('Array of scripts to apply'),
@@ -39,7 +42,12 @@ export function createUpsertCustomCodeTool(client: WebflowClient) {
       scripts,
     }: {
       siteId: string;
-      scripts: Array<{ id: string; location: string; version: string; attributes?: Record<string, string> }>;
+      scripts: Array<{
+        id: string;
+        location: string;
+        version: string;
+        attributes?: Record<string, string>;
+      }>;
     }) => {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       await client.sites.scripts.upsertCustomCode(siteId, { scripts } as any);
@@ -51,7 +59,8 @@ export function createUpsertCustomCodeTool(client: WebflowClient) {
 export function createDeleteCustomCodeTool(client: WebflowClient) {
   return {
     name: 'webflow_delete_custom_code',
-    description: 'Remove all custom code scripts from a site. Use with caution — this removes all scripts applied by your app.',
+    description:
+      'Remove all custom code scripts from a site. Use with caution — this removes all scripts applied by your app.',
     inputSchema: z.object({
       siteId: z.string().describe('The Webflow site ID'),
     }),

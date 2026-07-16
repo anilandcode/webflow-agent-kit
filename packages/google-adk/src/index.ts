@@ -54,10 +54,7 @@ interface ADKTool {
  * const tools = toGoogleADKTools(kit, ['cms', 'sites']);
  * ```
  */
-export function toGoogleADKTools(
-  kit: WebflowAgentKit,
-  groups: ToolGroup[] = ['all'],
-): ADKTool[] {
+export function toGoogleADKTools(kit: WebflowAgentKit, groups: ToolGroup[] = ['all']): ADKTool[] {
   const includeAll = groups.includes('all');
 
   const toolCreators: Array<() => Record<string, ADKTool>> = [];

@@ -51,13 +51,7 @@ export function createDeleteRedirectTool(client: WebflowClient) {
       siteId: z.string().describe('The Webflow site ID'),
       redirectId: z.string().describe('The redirect ID to delete'),
     }),
-    execute: async ({
-      siteId,
-      redirectId,
-    }: {
-      siteId: string;
-      redirectId: string;
-    }) => {
+    execute: async ({ siteId, redirectId }: { siteId: string; redirectId: string }) => {
       await client.sites.redirects.delete(siteId, redirectId);
       return { deleted: true, redirectId };
     },
