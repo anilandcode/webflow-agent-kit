@@ -16,6 +16,7 @@ import {
   createOrderTools,
   createInventoryTools,
   createAuditLogTools,
+  createComponentTools,
 } from '@webflow-agent-kit/core';
 
 type ToolGroup =
@@ -33,6 +34,7 @@ type ToolGroup =
   | 'orders'
   | 'inventory'
   | 'audit-logs'
+  | 'components'
   | 'all';
 
 interface CoreTool {
@@ -78,6 +80,7 @@ export function toLangChainTools(
   if (includeAll || groups.includes('orders')) toolGroups.orders = toCore(createOrderTools(kit.client));
   if (includeAll || groups.includes('inventory')) toolGroups.inventory = toCore(createInventoryTools(kit.client));
   if (includeAll || groups.includes('audit-logs')) toolGroups['audit-logs'] = toCore(createAuditLogTools(kit.client));
+  if (includeAll || groups.includes('components')) toolGroups.components = toCore(createComponentTools(kit.client));
 
   const tools: CoreTool[] = [];
   for (const group of Object.values(toolGroups)) {

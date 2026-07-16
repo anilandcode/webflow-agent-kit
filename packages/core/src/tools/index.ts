@@ -12,3 +12,4 @@ export { createInventoryTools, createGetInventoryTool, createUpdateInventoryTool
 export { createProductTools, createListProductsTool, createGetProductTool, createCreateProductTool, createUpdateProductTool } from './ecommerce.js';
 export { createOrderTools, createListOrdersTool, createGetOrderTool, createUpdateOrderTool, createFulfillOrderTool, createUnfulfillOrderTool } from './orders.js';
 export { createAuditLogTools, createListAuditLogsTool } from './audit-logs.js';
+export { createComponentTools, createListComponentsTool, createGetComponentContentTool, createUpdateComponentContentTool, createGetComponentPropertiesTool, createUpdateComponentPropertiesTool } from './components.js';

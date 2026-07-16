@@ -14,6 +14,7 @@ import {
   createOrderTools,
   createInventoryTools,
   createAuditLogTools,
+  createComponentTools,
 } from '@webflow-agent-kit/core';
 
 type ToolGroup =
@@ -31,6 +32,7 @@ type ToolGroup =
   | 'orders'
   | 'inventory'
   | 'audit-logs'
+  | 'components'
   | 'all';
 
 type CoreToolDefinition = {
@@ -114,6 +116,9 @@ export function toVercelAITools(
   }
   if (includeAll || groups.includes('audit-logs')) {
     toolGroups['audit-logs'] = toCtd(createAuditLogTools(kit.client));
+  }
+  if (includeAll || groups.includes('components')) {
+    toolGroups.components = toCtd(createComponentTools(kit.client));
   }
 
   const allTools = flattenTools(toolGroups);

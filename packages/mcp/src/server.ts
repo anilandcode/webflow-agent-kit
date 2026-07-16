@@ -22,6 +22,7 @@ import {
   createOrderTools,
   createInventoryTools,
   createAuditLogTools,
+  createComponentTools,
 } from '@webflow-agent-kit/core';
 
 type CoreTool = {
@@ -77,6 +78,7 @@ export async function createMcpServer(authConfig?: WebflowAuthConfig) {
     orders: tc(createOrderTools(kit.client)),
     inventory: tc(createInventoryTools(kit.client)),
     'audit-logs': tc(createAuditLogTools(kit.client)),
+    components: tc(createComponentTools(kit.client)),
   };
 
   const tools = flattenToolGroups(toolGroups);
