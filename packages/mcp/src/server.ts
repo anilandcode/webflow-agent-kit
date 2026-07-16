@@ -24,6 +24,7 @@ import {
   createAuditLogTools,
   createComponentTools,
 } from '@webflow-agent-kit/core';
+import { evaluatePolicy, DEFAULT_POLICY, type MutationPolicy } from '@webflow-agent-kit/core';
 
 type CoreTool = {
   name: string;
@@ -55,9 +56,10 @@ function flattenToolGroups(
   return map;
 }
 
-export async function createMcpServer(authConfig?: WebflowAuthConfig) {
+export async function createMcpServer(authConfig?: WebflowAuthConfig, policyOverride?: Partial<MutationPolicy>) {
   const config = authConfig ?? { type: 'env' as const };
   const kit = createWebflowAgentKit(config);
+  const activePolicy: MutationPolicy = { ...DEFAULT_POLICY, ...policyOverride };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const tc = (tools: Record<string, any>): Record<string, CoreTool> =>
@@ -97,6 +99,48 @@ export async function createMcpServer(authConfig?: WebflowAuthConfig) {
     if (!tool) {
       throw new Error(`Unknown tool: ${request.params.name}`);
     }
+
+    // Evaluate mutation policy before executing
+    const policyResult = evaluatePolicy(
+      request.params.name,
+      (request.params.arguments ?? {}) as Record<string, unknown>,
+      activePolicy,
+    );
+
+    if (!policyResult.allowed) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify({
+              blocked: true,
+              tool: request.params.name,
+              reason: policyResult.reason,
+              mode: policyResult.mode,
+            }, null, 2),
+          },
+        ],
+        isError: true,
+      };
+    }
+
+    if (policyResult.requiresApproval) {
+      return {
+        content: [
+          {
+            type: 'text',
+            text: JSON.stringify({
+              approvalRequired: true,
+              tool: request.params.name,
+              message: `Tool "${request.params.name}" requires explicit approval. Set mode to 'allow_writes' or configure an approvalHandler to skip.`,
+              request: policyResult.approvalRequest,
+            }, null, 2),
+          },
+        ],
+        isError: true,
+      };
+    }
+
     try {
       const result = await tool.execute(request.params.arguments ?? {});
       return {

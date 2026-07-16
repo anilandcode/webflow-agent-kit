@@ -17,4 +17,24 @@ export {
 export { chunkItems, executeBulkChunked } from './bulk.js';
 export { createAgentRunner } from './agent-runner.js';
 export type { AgentRunner, AgentRunnerOptions } from './agent-runner.js';
+export {
+  evaluatePolicy,
+  checkApproval,
+  setAuditHook,
+  DEFAULT_POLICY,
+} from './mutation-policy.js';
+export type {
+  MutationPolicy,
+  PolicyMode,
+  PolicyResult,
+  MutationRequest,
+  AuditEvent,
+  AuditHook,
+} from './mutation-policy.js';
+export {
+  classifyTool,
+  isWriteOperation,
+  getToolClassSummary,
+} from './tool-classification.js';
+export type { MutationClass, ToolMeta } from './tool-classification.js';
 export * from './tools/index.js';
