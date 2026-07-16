@@ -57,7 +57,10 @@ function flattenToolGroups(
   return map;
 }
 
-export async function createMcpServer(authConfig?: WebflowAuthConfig, policyOverride?: Partial<MutationPolicy>) {
+export async function createMcpServer(
+  authConfig?: WebflowAuthConfig,
+  policyOverride?: Partial<MutationPolicy>,
+) {
   const config = authConfig ?? { type: 'env' as const };
   const kit = createWebflowAgentKit(config);
   const activePolicy: MutationPolicy = { ...DEFAULT_POLICY, ...policyOverride };
@@ -113,12 +116,16 @@ export async function createMcpServer(authConfig?: WebflowAuthConfig, policyOver
         content: [
           {
             type: 'text',
-            text: JSON.stringify({
-              blocked: true,
-              tool: request.params.name,
-              reason: policyResult.reason,
-              mode: policyResult.mode,
-            }, null, 2),
+            text: JSON.stringify(
+              {
+                blocked: true,
+                tool: request.params.name,
+                reason: policyResult.reason,
+                mode: policyResult.mode,
+              },
+              null,
+              2,
+            ),
           },
         ],
         isError: true,
@@ -130,12 +137,16 @@ export async function createMcpServer(authConfig?: WebflowAuthConfig, policyOver
         content: [
           {
             type: 'text',
-            text: JSON.stringify({
-              approvalRequired: true,
-              tool: request.params.name,
-              message: `Tool "${request.params.name}" requires explicit approval. Set mode to 'allow_writes' or configure an approvalHandler to skip.`,
-              request: policyResult.approvalRequest,
-            }, null, 2),
+            text: JSON.stringify(
+              {
+                approvalRequired: true,
+                tool: request.params.name,
+                message: `Tool "${request.params.name}" requires explicit approval. Set mode to 'allow_writes' or configure an approvalHandler to skip.`,
+                request: policyResult.approvalRequest,
+              },
+              null,
+              2,
+            ),
           },
         ],
         isError: true,

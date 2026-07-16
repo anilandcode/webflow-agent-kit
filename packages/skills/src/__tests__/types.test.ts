@@ -26,7 +26,9 @@ describe('validateManifest', () => {
   });
 
   it('rejects empty id', () => {
-    expect(() => validateManifest({ ...minimalValidManifest, id: '' })).toThrow(SkillValidationError);
+    expect(() => validateManifest({ ...minimalValidManifest, id: '' })).toThrow(
+      SkillValidationError,
+    );
   });
 
   it('rejects invalid risk level', () => {
@@ -36,9 +38,9 @@ describe('validateManifest', () => {
   });
 
   it('rejects invalid default mode', () => {
-    expect(() =>
-      validateManifest({ ...minimalValidManifest, defaultMode: 'auto' }),
-    ).toThrow(SkillValidationError);
+    expect(() => validateManifest({ ...minimalValidManifest, defaultMode: 'auto' })).toThrow(
+      SkillValidationError,
+    );
   });
 
   it('rejects invalid tool groups', () => {
@@ -48,15 +50,15 @@ describe('validateManifest', () => {
   });
 
   it('rejects missing requiredToolGroups array', () => {
-    expect(() =>
-      validateManifest({ ...minimalValidManifest, requiredToolGroups: [] }),
-    ).toThrow(SkillValidationError);
+    expect(() => validateManifest({ ...minimalValidManifest, requiredToolGroups: [] })).toThrow(
+      SkillValidationError,
+    );
   });
 
   it('rejects non-boolean supportsRollback', () => {
-    expect(() =>
-      validateManifest({ ...minimalValidManifest, supportsRollback: 'yes' }),
-    ).toThrow(SkillValidationError);
+    expect(() => validateManifest({ ...minimalValidManifest, supportsRollback: 'yes' })).toThrow(
+      SkillValidationError,
+    );
   });
 
   it('accepts destructive risk level', () => {

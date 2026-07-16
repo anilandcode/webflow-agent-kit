@@ -69,7 +69,9 @@ describe('Publish Workflow Skill', () => {
     const pubStep = results.find((r) => r.name === 'publish');
     expect(pubStep?.status).toBe('completed');
     expect(client.collections.items.publishItem).toHaveBeenCalledTimes(1);
-    expect(client.collections.items.publishItem).toHaveBeenCalledWith('col-1', { itemIds: ['item-1'] });
+    expect(client.collections.items.publishItem).toHaveBeenCalledWith('col-1', {
+      itemIds: ['item-1'],
+    });
   });
 
   it('execute with no approved IDs publishes all staged items', async () => {
@@ -89,7 +91,7 @@ describe('Publish Workflow Skill', () => {
   it('rolling back after execute is handled', async () => {
     const client = mockPublishClient();
     const skill = createPublishWorkflowSkill(client);
-    const results = await skill.rollback?.('exec-1') ?? [];
+    const results = (await skill.rollback?.('exec-1')) ?? [];
     expect(results).toBeDefined();
   });
 });

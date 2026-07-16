@@ -16,8 +16,14 @@ function createMockSkill(overrides?: Partial<SkillManifest>): Skill<TestInput, T
     riskLevel: 'review_required',
     defaultMode: 'dry_run',
     supportsRollback: false,
-    inputSchema: { schema: { parse: (v: unknown) => v as TestInput } as TestInput, description: '' },
-    outputSchema: { schema: { parse: (v: unknown) => v as TestOutput } as TestOutput, description: '' },
+    inputSchema: {
+      schema: { parse: (v: unknown) => v as TestInput } as TestInput,
+      description: '',
+    },
+    outputSchema: {
+      schema: { parse: (v: unknown) => v as TestOutput } as TestOutput,
+      description: '',
+    },
     ...overrides,
   };
 
@@ -39,7 +45,14 @@ function createMockSkill(overrides?: Partial<SkillManifest>): Skill<TestInput, T
         name: 'step-1',
         status: 'completed',
         audit: [
-          { toolName: 'testTool', args: {}, result: 'ok', success: true, changedResourceIds: ['abc'], timestamp: new Date().toISOString() },
+          {
+            toolName: 'testTool',
+            args: {},
+            result: 'ok',
+            success: true,
+            changedResourceIds: ['abc'],
+            timestamp: new Date().toISOString(),
+          },
         ],
         summary: 'Executed',
       },
@@ -89,9 +102,9 @@ describe('SkillExecutor', () => {
     const skill = createMockSkill();
     const executor = new SkillExecutor(skill);
 
-    await expect(
-      executor.execute({ name: 'hello' }, 'fake-token', 'confirmed'),
-    ).rejects.toThrow('Invalid confirmation token');
+    await expect(executor.execute({ name: 'hello' }, 'fake-token', 'confirmed')).rejects.toThrow(
+      'Invalid confirmation token',
+    );
   });
 
   it('generateConfirmationToken is stable', () => {

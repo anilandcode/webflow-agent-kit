@@ -65,11 +65,7 @@ describe('evaluatePolicy — blocked tools', () => {
       mode: 'allow_writes',
       blockedToolNames: ['webflow_delete_cms_items'],
     };
-    const result = evaluatePolicy(
-      'webflow_delete_cms_items',
-      { itemIds: ['a'] },
-      policy,
-    );
+    const result = evaluatePolicy('webflow_delete_cms_items', { itemIds: ['a'] }, policy);
     expect(result.allowed).toBe(false);
     expect(result.reason).toContain('blocked');
   });
@@ -142,11 +138,7 @@ describe('evaluatePolicy — max items per mutation', () => {
       mode: 'allow_writes',
       maxItemsPerMutation: 10,
     };
-    const result = evaluatePolicy(
-      'webflow_create_cms_items',
-      { items: [1, 2, 3] },
-      policy,
-    );
+    const result = evaluatePolicy('webflow_create_cms_items', { items: [1, 2, 3] }, policy);
     expect(result.allowed).toBe(true);
   });
 
@@ -171,11 +163,7 @@ describe('evaluatePolicy — require_approval mode', () => {
       mode: 'require_approval',
       requireApprovalFor: ['webflow_create_cms_items'],
     };
-    const result = evaluatePolicy(
-      'webflow_create_cms_items',
-      { items: [] },
-      policy,
-    );
+    const result = evaluatePolicy('webflow_create_cms_items', { items: [] }, policy);
     expect(result.allowed).toBe(true);
     expect(result.requiresApproval).toBe(true);
     expect(result.approvalRequest).toBeDefined();

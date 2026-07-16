@@ -95,7 +95,11 @@ export class SkillExecutor<TInput, TOutput> {
   /**
    * Execute with confirmation. Requires a valid confirmation token.
    */
-  async execute(input: TInput, confirmationToken: string, mode: ExecutionMode): Promise<StepResult[]> {
+  async execute(
+    input: TInput,
+    confirmationToken: string,
+    mode: ExecutionMode,
+  ): Promise<StepResult[]> {
     if (mode !== 'confirmed') {
       throw new ConfirmationRequiredError(this.skill.manifest.id);
     }

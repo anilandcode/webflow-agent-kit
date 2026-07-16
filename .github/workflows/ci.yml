@@ -77,35 +77,8 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - name: Pack and verify each package
-        run: |
-          set -e
-          mkdir -p /tmp/smoke-test
-          WORKSPACE_DIR="$GITHUB_WORKSPACE"
-          for pkg in core vercel-ai langchain google-adk mcp cli skills; do
-            echo ""
-            echo "=== Smoke test: @webflow-agent-kit/$pkg ==="
-            cd "$WORKSPACE_DIR/packages/$pkg"
-            pnpm pack --pack-destination /tmp/smoke-test
-            PKG_TGZ=$(ls /tmp/smoke-test/webflow-agent-kit-$pkg-*.tgz 2>/dev/null | head -1)
-            if [ ! -f "$PKG_TGZ" ]; then
-              echo "❌ Failed to pack $pkg"
-              exit 1
-            fi
-
-            mkdir -p /tmp/smoke-test/$pkg
-            cd /tmp/smoke-test/$pkg
-            npm init -y > /dev/null 2>&1
-            npm install "$PKG_TGZ" > /dev/null 2>&1
-
-            echo "✅ $pkg installed from tarball"
-
-            cd "$WORKSPACE_DIR"
-          done
-
-      - name: Verify no workspace:* leaks
-        run: |
-          echo '✅ workspace:* check passed'
+      - name: Run package smoke tests
+        run: node scripts/package-smoke.mjs
 
   mcp-smoke:
     name: MCP Protocol Smoke
@@ -122,19 +95,12 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
-      - name: Start MCP server and verify protocol
+      - name: Run MCP protocol smoke test
+        run: node packages/mcp/scripts/smoke-test.mjs
+
+      - name: Verify no workspace:* leaks
         run: |
-          echo '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ci-test","version":"1.0"}}}' > /tmp/mcp-input
-          echo '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' >> /tmp/mcp-input
-
-          WEBFLOW_TOKEN=fake-token-for-ci timeout 10 node packages/mcp/dist/server.js < /tmp/mcp-input > /tmp/mcp-output 2>&1 || true
-
-          if grep -q "webflow_list_sites" /tmp/mcp-output; then
-            echo "✅ MCP server responds with tool listing"
-          else
-            echo "⚠️  MCP server output (may contain errors with fake token):"
-            head -5 /tmp/mcp-output
-          fi
+          echo '✅ workspace:* check passed'
 
   python-quality:
     name: Python Quality

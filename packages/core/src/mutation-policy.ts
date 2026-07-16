@@ -221,11 +221,13 @@ export function evaluatePolicy(
       return deny(`Tool "${toolName}" is a write operation; policy mode is read_only`, request);
 
     case 'plan_only':
-      return deny(`Tool "${toolName}" is a write operation; policy mode is plan_only. Use plan() or dryRun() instead.`, request);
+      return deny(
+        `Tool "${toolName}" is a write operation; policy mode is plan_only. Use plan() or dryRun() instead.`,
+        request,
+      );
 
     case 'require_approval': {
-      const needsApproval =
-        policy.requireApprovalFor?.includes(toolName) ?? false;
+      const needsApproval = policy.requireApprovalFor?.includes(toolName) ?? false;
 
       if (!needsApproval) {
         // Tool is not on the approval list — allow it
@@ -308,10 +310,7 @@ function allow(request: MutationRequest): PolicyResult {
   return presult;
 }
 
-function deny(
-  reason: string,
-  request: MutationRequest,
-): PolicyResult {
+function deny(reason: string, request: MutationRequest): PolicyResult {
   const out: PolicyResult = {
     allowed: false,
     reason,

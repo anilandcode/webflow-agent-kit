@@ -1,5 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
-import { createSeoAuditSkill, type SeoAuditClient } from '../../../../skill-packs/seo-audit/src/index.ts';
+import {
+  createSeoAuditSkill,
+  type SeoAuditClient,
+} from '../../../../skill-packs/seo-audit/src/index.ts';
 import { SkillExecutor, generateConfirmationToken } from '../executor.js';
 
 function mockSeoClient(overrides?: Partial<SeoAuditClient>): SeoAuditClient {
@@ -82,7 +85,9 @@ describe('SEO Audit Skill', () => {
     const executor = new SkillExecutor(skill);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await expect((executor as any).execute({ siteId: 'site-1' }, 'fake', 'dry_run')).rejects.toThrow();
+    await expect(
+      (executor as any).execute({ siteId: 'site-1' }, 'fake', 'dry_run'),
+    ).rejects.toThrow();
     expect(client.pages.updatePageSettings).not.toHaveBeenCalled();
   });
 
