@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    labels:
+      - dependencies
+
+  - package-ecosystem: npm
+    directory: '/examples/vercel-ai-agent'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+
+  - package-ecosystem: pip
+    directory: '/webflow-agent-kit-python'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
+
+  - package-ecosystem: github-actions
+    directory: '/'
+    schedule:
+      interval: weekly
+      day: monday
+      time: '09:00'
+    open-pull-requests-limit: 5
+    labels:
+      - dependencies
