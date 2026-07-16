@@ -75,9 +75,9 @@ export WEBFLOW_TOKEN=your_token_here
 export GOOGLE_GENERATIVE_AI_API_KEY=your_gemini_key
 ```
 
-## MCP — Claude Code, Codex, Cursor, Claude Desktop
+## MCP — Works with Every MCP Client
 
-Zero code. Add to your MCP config:
+Add this to your MCP config and your AI agent has instant access to all 62 Webflow tools. **No code required.**
 
 ```json
 {
@@ -91,7 +91,80 @@ Zero code. Add to your MCP config:
 }
 ```
 
-Works with **Claude Code** (`.claude/mcp.json`), **Codex**, **Cursor**, **Windsurf**, **Cody**, **Claude Desktop**.
+### Claude Code (Recommended)
+
+Create or edit `~/.claude/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "npx",
+      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
+    }
+  }
+}
+```
+
+Then in Claude Code: `> List my Webflow sites` — and it just works. Ask it to create CMS items, audit SEO, manage ecommerce orders, anything.
+
+### Codex (OpenAI)
+
+Add to Codex MCP settings or `~/.codex/mcp.json`:
+
+```json
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "npx",
+      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
+    }
+  }
+}
+```
+
+### Cursor
+
+Settings → MCP → Add new MCP server → paste the config above.
+
+### Windsurf / Cody
+
+Add the same config via Settings → MCP Servers.
+
+### Claude Desktop
+
+Edit `claude_desktop_config.json` (Help → Developer → Edit Config):
+
+```json
+{
+  "mcpServers": {
+    "webflow": {
+      "command": "npx",
+      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
+    }
+  }
+}
+```
+
+### Prompt Ideas (works in any MCP client)
+
+Once connected, try these:
+
+```
+> List all my Webflow sites and their published status
+> Create 5 blog post drafts about AI trends in 2026
+> Audit all pages for SEO and update meta descriptions
+> List unfulfilled ecommerce orders from last week
+> Add Google Analytics custom code to the site header
+> Migrate all blog posts from the "drafts" collection to "published"
+> Create a 301 redirect from /old-blog to /new-blog
+> Check inventory levels for all SKUs
+```
+
+**Any AI tool that speaks MCP can now control your Webflow sites.**
 
 ## All 62 Tools, 15 Groups
 
