@@ -13,22 +13,24 @@ import { openai } from '@ai-sdk/openai';
  * Gemini is free tier — get a key at https://aistudio.google.com/apikey
  */
 function getModel(): any {
+  // Gemini is free tier — check it FIRST so it's the easiest path
+  const geminiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+  if (geminiKey) {
+    console.log('🤖 Using Google Gemini (free tier)');
+    return google('gemini-2.0-flash');
+  }
   if (process.env.ANTHROPIC_API_KEY) {
     console.log('🤖 Using Anthropic (Claude)');
     return anthropic('claude-sonnet-4-5');
-  }
-  if (process.env.GOOGLE_GENERATIVE_AI_API_KEY) {
-    console.log('🤖 Using Google Gemini (free tier)');
-    return google('gemini-2.5-flash');
   }
   if (process.env.OPENAI_API_KEY) {
     console.log('🤖 Using OpenAI');
     return openai('gpt-4o');
   }
 
-  // Default: Gemini with the standard env var name
-  console.log('🤖 Using Google Gemini (ensure GOOGLE_GENERATIVE_AI_API_KEY is set)');
-  return google('gemini-2.5-flash');
+  // Fallback: try Gemini anyway (will error if key not set)
+  console.log('🤖 Falling back to Google Gemini');
+  return google('gemini-2.0-flash');
 }
 
 const BLOG_AGENT_SYSTEM_PROMPT = `You are a Webflow CMS blog manager. You have access to the following capabilities:
