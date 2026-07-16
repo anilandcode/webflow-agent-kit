@@ -55,17 +55,29 @@ program
   .command('tools')
   .description('List available tools')
   .action(() => {
-    console.log('Available tool groups:');
-    console.log('  sites      — List, get, publish sites and domains');
-    console.log('  pages      — List, get, update page metadata and static content');
-    console.log('  cms        — Full CMS item CRUD (staged + live)');
-    console.log('  collections — List and get collection schemas');
+    console.log('62 tools across 15 API groups:');
     console.log('');
-    console.log('Use these tools through:');
-    console.log('  • Vercel AI SDK:    @webflow-agent-kit/vercel-ai');
-    console.log('  • LangChain:        @webflow-agent-kit/langchain');
-    console.log('  • MCP Server:       @webflow-agent-kit/mcp');
-    console.log('  • CLI:              @webflow-agent-kit/cli');
+    console.log('  sites         list, get, publish, custom domains');
+    console.log('  pages         list, get/update metadata, update static content');
+    console.log('  cms           full CRUD + publish + live listing (auto-batched)');
+    console.log('  collections   list/get, create/update/delete fields');
+    console.log('  assets        list, create (S3 upload), get, delete, folders');
+    console.log('  forms         list, get, list/get/update submissions');
+    console.log('  ecommerce     12 tools: products (4), orders (5), inventory (3)');
+    console.log('  custom-code   get, upsert header/footer scripts, delete');
+    console.log('  redirects     list, create, delete (Enterprise)');
+    console.log('  seo           robots.txt get/update, well-known files');
+    console.log('  webhooks      list, create, get, delete');
+    console.log('  components    list, get/update content, get/update properties');
+    console.log('  audit-logs    list workspace audit logs');
+    console.log('');
+    console.log('6 adapters:');
+    console.log('  • Vercel AI SDK   @webflow-agent-kit/vercel-ai');
+    console.log('  • LangChain       @webflow-agent-kit/langchain');
+    console.log('  • Google ADK      @webflow-agent-kit/google-adk');
+    console.log('  • MCP Server      @webflow-agent-kit/mcp');
+    console.log('  • CLI             @webflow-agent-kit/cli');
+    console.log('  • Agnostic Runner @webflow-agent-kit/core (createAgentRunner)');
   });
 
 program.parse();
