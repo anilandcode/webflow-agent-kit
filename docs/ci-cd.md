@@ -10,11 +10,12 @@ Runs on every push to `main` and every pull request.
 
 | Job | What it checks | Concurrency |
 |---|---|---|
+| **Changed Files** | Uses `dorny/paths-filter@v3` to detect which paths changed. Outputs `python` and `docs` booleans used by downstream conditional jobs. Always runs. | Always |
 | **TS Quality** | `pnpm lint`, `pnpm format:check`, `pnpm typecheck`, `pnpm test`, `pnpm build` on Node 20 and Node 22 (matrix) | Cancelled on new PR pushes |
 | **Package Smoke** | Packs every npm package into a tarball, installs it into a clean temp project, verifies successful install. Checks that `workspace:*` references are resolved | After quality |
 | **MCP Protocol Smoke** | Starts `@webflow-agent-kit/mcp` with a fake token, sends MCP `initialize` + `tools/list` requests, verifies tool names appear in output | After quality |
-| **Python Quality** | `ruff`, `mypy`, `pytest`, `python -m build`, `twine check` on Python 3.10, 3.11, and 3.12 (matrix). Only runs when Python files change, `[python]` is in the commit message, or on `main` pushes | After quality |
-| **Docs Build** | Builds the Astro Starlight docs-site. Only runs when docs/skill-packs/README change, `[docs]` is in the commit message, or on `main` pushes | After quality |
+| **Python Quality** | `ruff`, `mypy`, `pytest`, `python -m build`, `twine check` on Python 3.10, 3.11, and 3.12 (matrix). Runs when `webflow-agent-kit-python/**` files change (detected by `dorny/paths-filter`), on `workflow_dispatch`, or on every push to `main`. Commit-message keywords are no longer used. | After changed-files |
+| **Docs Build** | Builds the Astro Starlight docs-site. Runs when `docs/**`, `docs-site/**`, `README.md`, `CONTRIBUTING.md`, or `skill-packs/**` change (detected by `dorny/paths-filter`), on `workflow_dispatch`, or on every push to `main`. | After changed-files |
 
 ### `security.yml` — CodeQL + Dependency Review
 
