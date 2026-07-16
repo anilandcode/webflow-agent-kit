@@ -98,10 +98,6 @@ jobs:
       - name: Run MCP protocol smoke test
         run: node packages/mcp/scripts/smoke-test.mjs
 
-      - name: Verify no workspace:* leaks
-        run: |
-          echo '✅ workspace:* check passed'
-
   python-quality:
     name: Python Quality
     runs-on: ubuntu-latest
