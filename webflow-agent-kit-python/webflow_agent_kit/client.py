@@ -1,15 +1,20 @@
-"""WebflowAgentKit client — connects to the MCP server backend."""
+"""WebflowAgentKit client — EXPERIMENTAL. No MCP transport is implemented."""
 
 from dataclasses import dataclass
 from typing import Optional
+
 from .tools import ToolSet
 
 
 @dataclass
 class WebflowAgentKit:
-    """Main entry point for webflow-agent-kit Python bindings.
+    """EXPERIMENTAL: Entry point for webflow-agent-kit Python bindings.
 
-    Communicates with the @webflow-agent-kit/mcp server under the hood.
+    The TypeScript packages are the supported path:
+        npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
+
+    This Python package is a pre-alpha scaffold. Tool retrieval and
+    framework adapters are not implemented.
     """
 
     site_token: Optional[str] = None
@@ -26,9 +31,27 @@ class WebflowAgentKit:
         return cls(site_token=token)
 
     def all_tools(self) -> ToolSet:
-        """Return all 62 tools."""
-        return ToolSet(all_groups=True)
+        """Return all 62 tools.
+
+        Raises:
+            NotImplementedError: Tool retrieval requires an MCP transport
+                that has not been implemented. Use the TypeScript packages
+                for production: @webflow-agent-kit/core
+        """
+        raise NotImplementedError(
+            "Tool retrieval is not implemented. "
+            "The Python package requires an MCP transport layer that has not been built. "
+            "Use the TypeScript packages for production: npm install @webflow-agent-kit/core"
+        )
 
     def tools(self, groups: list[str]) -> ToolSet:
-        """Return tools for specific groups (e.g., ['cms', 'sites'])."""
-        return ToolSet(groups=groups)
+        """Return tools for specific groups (e.g., ['cms', 'sites']).
+
+        Raises:
+            NotImplementedError: Tool retrieval requires an MCP transport
+                that has not been implemented.
+        """
+        raise NotImplementedError(
+            "Tool retrieval is not implemented. "
+            "Use the TypeScript packages: @webflow-agent-kit/core"
+        )

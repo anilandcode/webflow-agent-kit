@@ -1,7 +1,11 @@
-"""webflow-agent-kit Python bindings.
+"""webflow-agent-kit Python bindings — EXPERIMENTAL / PRE-ALPHA.
 
-Exposes all 62 Webflow Data API tools as Python-native callables,
-compatible with OpenAI Agents SDK, LangChain Python, CrewAI, and any MCP client.
+WARNING: This package is a scaffold. No adapter is implemented.
+Use the TypeScript packages for production:
+
+    npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
+
+See docs/python-status.md for the Python roadmap.
 """
 
 from .client import WebflowAgentKit

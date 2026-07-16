@@ -3,18 +3,18 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "webflow-agent-kit"
+name = "webflow-agent-kit-python"
 version = "0.0.1"
-description = "Python bindings for webflow-agent-kit — Webflow Data API tools for AI agents"
+description = "EXPERIMENTAL: Python package for webflow-agent-kit. Use the TypeScript packages for production."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
 authors = [
     {name = "Anil Pervaiz", email = "hello@anilpervaiz.com"},
 ]
-keywords = ["webflow", "ai-agent", "openai", "langchain", "crewai", "mcp"]
+keywords = ["webflow", "ai-agent", "mcp", "experimental"]
 classifiers = [
-    "Development Status :: 1 - Planning",
+    "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
@@ -23,14 +23,28 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 
-dependencies = [
-    "mcp>=1.0.0",
-]
-
 [project.optional-dependencies]
-openai = ["openai-agents>=0.1.0"]
-langchain = ["langchain-core>=0.3.0"]
-crewai = ["crewai>=0.1.0"]
+dev = [
+    "pytest>=8.0",
+    "ruff>=0.8",
+    "mypy>=1.15",
+    "build>=1.0",
+    "twine>=6.0",
+]
 
 [project.urls]
 Homepage = "https://github.com/anilandcode/webflow-agent-kit"
+
+[tool.hatch.build.targets.wheel]
+packages = ["webflow_agent_kit"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true

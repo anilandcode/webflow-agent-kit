@@ -1,74 +1,52 @@
-# webflow-agent-kit-python
+# webflow-agent-kit-python — EXPERIMENTAL / PRE-ALPHA
 
-Python bindings for webflow-agent-kit — use Webflow's Data API from any Python AI agent framework (OpenAI Agents SDK, LangChain Python, CrewAI, etc.).
+> **Warning:** This package is a scaffold. No adapter is functional.
+> For production use, install the TypeScript packages:
+>
+> ```bash
+> npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
+> ```
 
-## Architecture
+Python companion package for [webflow-agent-kit](https://github.com/anilandcode/webflow-agent-kit).
 
-This package wraps the webflow-agent-kit TypeScript tools via HTTP, providing a Python-native interface. The TypeScript MCP server runs as a subprocess, and this Python package communicates with it via the MCP protocol.
+## Status
 
-```python
-from webflow_agent_kit import WebflowAgentKit
+This package is in **pre-alpha** development. All adapter methods raise `NotImplementedError` with guidance to use the TypeScript packages instead.
 
-kit = WebflowAgentKit.from_env()
-tools = kit.all_tools()
+| Feature | Status |
+|---|---|
+| `WebflowAgentKit.from_env()` | Works (validates token presence) |
+| `kit.all_tools()` | Not implemented |
+| `to_openai_sdk()` | Not implemented |
+| `to_langchain()` | Not implemented |
+| `to_crewai()` | Not implemented |
+| `__len__()` | Not implemented |
 
-# Use with OpenAI Agents SDK
-from agents import Agent, Runner
-
-agent = Agent(
-    name="Webflow SEO Bot",
-    instructions="Audit Webflow site pages and update SEO metadata.",
-    tools=tools.to_openai_sdk(),
-)
-
-result = await Runner.run(agent, "Audit site ID abc123")
-```
-
-## Installation
+## Installation (for development)
 
 ```bash
-pip install webflow-agent-kit
-npm install @webflow-agent-kit/mcp  # Python package uses MCP under the hood
+cd webflow-agent-kit-python
+python -m pip install -e '.[dev]'
 ```
 
-## Usage
+## Quality Tools
 
-```python
-import os
-from webflow_agent_kit import WebflowAgentKit
-
-# Auto-reads WEBFLOW_TOKEN from env
-kit = WebflowAgentKit.from_env()
-
-# All 62 tools
-tools = kit.all_tools()
-
-# Specific groups
-cms_tools = kit.tools(["cms", "sites"])
-
-# Convert to OpenAI Agents SDK format
-openai_tools = tools.to_openai_sdk()
-
-# Convert to LangChain format
-langchain_tools = tools.to_langchain()
-
-# Convert to CrewAI format
-crewai_tools = tools.to_crewai()
+```bash
+ruff check .          # Linting
+mypy webflow_agent_kit  # Type checking
+pytest                # Tests
+python -m build       # Package build
+python -m twine check dist/*  # Distribution validation
 ```
 
-## Auth
+## Architecture (proposed)
 
-```python
-# Env var (recommended)
-kit = WebflowAgentKit.from_env()
+The TypeScript MCP server (`@webflow-agent-kit/mcp`) will run as a subprocess, and this Python package will communicate with it via the MCP protocol over stdio. The transport layer is not yet implemented.
 
-# Site token
-kit = WebflowAgentKit(site_token="your-token")
+## Roadmap
 
-# OAuth
-kit = WebflowAgentKit(access_token="your-oauth-token")
-```
+See [docs/python-status.md](docs/python-status.md) for detailed limitations and architecture options.
 
 ## Repo
 
-This is the Python companion to [webflow-agent-kit](https://github.com/anilandcode/webflow-agent-kit).
+[github.com/anilandcode/webflow-agent-kit](https://github.com/anilandcode/webflow-agent-kit)
