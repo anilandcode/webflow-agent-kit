@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "webflow-api": "^3.2.0",
-    "zod": "^3.23.0"
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "msw": "^2.7.0",
