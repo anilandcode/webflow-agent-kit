@@ -13,7 +13,7 @@
     "@ai-sdk/openai": "^4.0.0",
     "@webflow-agent-kit/core": "workspace:*",
     "@webflow-agent-kit/vercel-ai": "workspace:*",
-    "ai": "^5.0.0",
+    "ai": "^7.0.31",
     "next": "^15.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
