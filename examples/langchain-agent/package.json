@@ -9,7 +9,7 @@
   "dependencies": {
     "@webflow-agent-kit/core": "workspace:*",
     "@webflow-agent-kit/langchain": "workspace:*",
-    "@langchain/core": "^0.3.0",
+    "@langchain/core": "^1.2.3",
     "@langchain/openai": "^0.3.0",
     "dotenv": "^16.0.0",
     "zod": "^3.23.0"
