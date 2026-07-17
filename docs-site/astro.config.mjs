@@ -18,6 +18,10 @@ export default defineConfig({
           autogenerate: { directory: 'getting-started' },
         },
         {
+          label: 'Client Setup Guides',
+          autogenerate: { directory: 'clients' },
+        },
+        {
           label: 'Tools',
           autogenerate: { directory: 'tools' },
         },

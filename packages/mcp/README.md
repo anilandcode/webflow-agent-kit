@@ -13,7 +13,7 @@ npm install @webflow-agent-kit/mcp
 Start the MCP server:
 
 ```bash
-WEBFLOW_TOKEN=your_token npx @webflow-agent-kit/mcp
+WEBFLOW_TOKEN=your_token npx @webflow-agent-kit/mcp@beta
 ```
 
 Or connect via MCP config (Claude Code, Codex, Cursor):
@@ -23,7 +23,7 @@ Or connect via MCP config (Claude Code, Codex, Cursor):
   "mcpServers": {
     "webflow": {
       "command": "npx",
-      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "args": ["-y", "@webflow-agent-kit/mcp@beta"],
       "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
     }
   }

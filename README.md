@@ -4,7 +4,7 @@
 
 <p align="center">
   <strong>AI agent tools for Webflow</strong><br/>
-  <sub>TypeScript-first · Zod-validated · Multi-framework</sub>
+  <sub>TypeScript-first · Zod-validated · Multi-framework · Public Beta</sub>
 </p>
 
 <p align="center">
@@ -16,10 +16,95 @@
 
 ## What is webflow-agent-kit?
 
-Exposes [Webflow's Data API](https://developers.webflow.com/data/reference) as **62 typed, Zod-validated AI agent tools**. Use them with Vercel AI SDK, LangChain, or the MCP server (Claude Code, Codex, Cursor).
+Exposes [Webflow's Data API](https://developers.webflow.com/data/reference) as **62 typed, Zod-validated AI agent tools**. Use them with Vercel AI SDK, LangChain, or the MCP server to control Webflow sites from any AI client.
 
 ```bash
-npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai
+npm install @webflow-agent-kit/core@beta @webflow-agent-kit/vercel-ai@beta
+```
+
+## Connect Your AI Client
+
+Add this config to any MCP-compatible client and get instant access to all 62 Webflow tools:
+
+```json
+{
+  "mcpServers": {
+    "webflow-agent-kit": {
+      "command": "npx",
+      "args": ["-y", "@webflow-agent-kit/mcp@beta"],
+      "env": { "WEBFLOW_TOKEN": "<YOUR_WEBFLOW_SITE_TOKEN>" }
+    }
+  }
+}
+```
+
+### Verified Clients
+
+| Client | Status | Setup Guide |
+|---|---|---|
+| **Claude Code** | ✅ Verified | [Setup](docs/clients/claude-code.md) |
+| **Codex CLI** | ✅ Verified | [Setup](docs/clients/codex-cli.md) |
+| **Gemini CLI** | ✅ Verified | [Setup](docs/clients/gemini-cli.md) |
+| **Cursor** | 🔶 Beta — test required | [Setup](docs/clients/cursor.md) |
+| **Claude Desktop** | 🔶 Beta — test required | [Setup](docs/clients/claude-desktop.md) |
+| **Windsurf** | 🔶 Beta — test required | [Setup](docs/clients/windsurf.md) |
+| **Kiro CLI** | 🔶 Experimental | [Setup](docs/clients/kiro.md) |
+| **Generic stdio MCP** | ✅ Beta | [Setup](docs/clients/generic-mcp.md) |
+
+## Features
+
+- **62 tools** across **15 API groups** — Sites, Pages, CMS, Ecommerce, Assets, Forms, Webhooks, SEO, Redirects, Custom Code, Components, Audit Logs, Collections + Fields
+- **Zod validation** on every tool input
+- **Rate limiting** — built-in token bucket with exponential backoff
+- **Bulk auto-batching** — splits >100 CMS items into API-safe chunks
+- **3 auth modes** — site tokens, OAuth, environment variables
+- **MCP server** — connects to Claude Code, Codex, Cursor, Claude Desktop, and any stdio MCP client
+- **Skill packs** — documented recipes for SEO audit, content migration, publish workflow, ecommerce sync
+
+## Packages
+
+All packages are published as `0.1.0-beta.1`. Install with the `@beta` tag:
+
+| Package | Description | npm |
+|---|---|---|
+| `@webflow-agent-kit/core` | 62 tools, auth, rate limiting, mutation policy | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/core)](https://www.npmjs.com/package/@webflow-agent-kit/core) |
+| `@webflow-agent-kit/vercel-ai` | Vercel AI SDK adapter | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/vercel-ai)](https://www.npmjs.com/package/@webflow-agent-kit/vercel-ai) |
+| `@webflow-agent-kit/mcp` | MCP server (62 tools via stdio) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/mcp)](https://www.npmjs.com/package/@webflow-agent-kit/mcp) |
+| `@webflow-agent-kit/skills` | Manifest-backed safe workflow packs | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/skills)](https://www.npmjs.com/package/@webflow-agent-kit/skills) |
+| `@webflow-agent-kit/langchain` | LangChain adapter (beta) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/langchain)](https://www.npmjs.com/package/@webflow-agent-kit/langchain) |
+| `@webflow-agent-kit/cli` | CLI runner (`wfak`) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/cli)](https://www.npmjs.com/package/@webflow-agent-kit/cli) |
+| `@webflow-agent-kit/google-adk` | Google ADK adapter (experimental) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/google-adk)](https://www.npmjs.com/package/@webflow-agent-kit/google-adk) |
+
+## Support Status
+
+| Package | Status | Notes |
+|---|---|---|
+| `@webflow-agent-kit/core` | **Beta (most mature)** | 62 tools, 71 tests, verified against live Webflow API |
+| `@webflow-agent-kit/vercel-ai` | **Beta** | Vercel AI SDK adapter with group filtering |
+| `@webflow-agent-kit/mcp` | **Beta** | MCP server — 62 tools via stdio. Parameter schemas simplified (P0 fix pending). Protocol smoke test passes. |
+| `@webflow-agent-kit/skills` | **Beta** | SkillExecutor with dry-run defaults, confirmation gating |
+| `@webflow-agent-kit/langchain` | **Beta** | Shape-compatible; no integration tests |
+| `@webflow-agent-kit/cli` | **Beta** | `auth` and `sites` commands functional; `run` is a prototype |
+| `@webflow-agent-kit/google-adk` | **Experimental** | Shape-compatible adapter; no Google ADK SDK dependency validated |
+| `webflow-agent-kit-python` (in-repo) | **Experimental / Pre-alpha** | All adapters return `NotImplementedError`. Not published. |
+
+## Tool Safety
+
+Most tools are **read-only**. Mutation tools (create, update, delete, publish, fulfill) write real data to your Webflow account. These actions **cannot be automatically reversed**.
+
+- **Default policy:** `read_only` for agent-facing APIs
+- **Write operations** require explicit `{ mode: 'allow_writes' }` opt-in
+- **Approval gates:** tools can be gated behind `approvalHandler` callbacks
+- **Audit hooks:** every mutation decision fires an audit event
+
+Always test with a staging site or a non-production collection before using mutation tools in automation. See [Safety and Mutations](docs/safety-and-mutations.md).
+
+## Quick Start
+
+```bash
+npm install @webflow-agent-kit/core@beta @webflow-agent-kit/vercel-ai@beta
+
+export WEBFLOW_TOKEN=your_token_here
 ```
 
 ```typescript
@@ -38,99 +123,6 @@ const { text } = await generateText({
   prompt: 'List all my Webflow sites and their published status.',
 });
 ```
-
-## Features
-
-- **62 tools** across **15 API groups** — Sites, Pages, CMS, Ecommerce, Assets, Forms, Webhooks, SEO, Redirects, Custom Code, Components, Audit Logs, Collections + Fields
-- **Zod validation** on every tool input
-- **Rate limiting** — built-in token bucket with exponential backoff
-- **Bulk auto-batching** — splits >100 CMS items into API-safe chunks
-- **3 auth modes** — site tokens, OAuth, environment variables
-- **MCP server** — connects to Claude Code, Codex, Cursor, Claude Desktop
-- **Quick-start examples** for Vercel AI SDK, LangChain, and MCP
-- **Skill packs** — documented recipes for SEO audit, content migration, publish workflow, ecommerce sync
-- MIT license, self-hostable, no third-party platform dependency
-
-## Packages
-
-| Package | Description | npm |
-|---|---|---|
-| `@webflow-agent-kit/core` | 62 tools, auth, rate limiting | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/core)](https://www.npmjs.com/package/@webflow-agent-kit/core) |
-| `@webflow-agent-kit/vercel-ai` | Vercel AI SDK adapter | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/vercel-ai)](https://www.npmjs.com/package/@webflow-agent-kit/vercel-ai) |
-| `@webflow-agent-kit/langchain` | LangChain adapter | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/langchain)](https://www.npmjs.com/package/@webflow-agent-kit/langchain) |
-| `@webflow-agent-kit/mcp` | MCP server (Claude Code, Codex, Cursor, Claude Desktop) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/mcp)](https://www.npmjs.com/package/@webflow-agent-kit/mcp) |
-| `@webflow-agent-kit/cli` | CLI runner (`wfak auth`, `wfak sites`, `wfak tools`) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/cli)](https://www.npmjs.com/package/@webflow-agent-kit/cli) |
-| `@webflow-agent-kit/google-adk` | Google ADK adapter (beta) | [![npm](https://img.shields.io/npm/v/@webflow-agent-kit/google-adk)](https://www.npmjs.com/package/@webflow-agent-kit/google-adk) |
-
-## Support Status
-
-| Package | Status | Notes |
-|---|---|---|
-| `@webflow-agent-kit/core` | **Stable** | 62 tools, 30 tests, verified against live Webflow API |
-| `@webflow-agent-kit/vercel-ai` | **Stable** | Vercel AI SDK adapter with group filtering |
-| `@webflow-agent-kit/langchain` | **Stable** | LangChain adapter with group filtering |
-| `@webflow-agent-kit/mcp` | **Beta** | Functional MCP server — parameter schemas stripped to basic shape (P0 fix pending) |
-| `@webflow-agent-kit/cli` | **Beta** | `auth` and `sites` commands stable; `run` command is a prototype |
-| `@webflow-agent-kit/google-adk` | **Experimental** | Shape-compatible adapter; no Google ADK SDK dependency validated |
-| `webflow-agent-kit-python` (in-repo) | **Experimental / Pre-alpha** | Scaffold only — all adapters return `NotImplementedError`. Not published or supported for production. |
-
-### Tool Safety
-
-Most tools are **read-only**. Mutation tools (create, update, delete, publish, fulfill) write real data to your Webflow account. These actions **cannot be automatically reversed**. Always test with a staging site or a non-production collection before using mutation tools in automation.
-
-## Quick Start
-
-```bash
-npm install @webflow-agent-kit/core @webflow-agent-kit/vercel-ai ai @ai-sdk/anthropic
-
-# Set your token
-export WEBFLOW_TOKEN=your_token_here
-export ANTHROPIC_API_KEY=your_key_here
-```
-
-## MCP Server
-
-Connect Claude Code, Codex, Cursor, or Claude Desktop to Webflow in one config block:
-
-```json
-{
-  "mcpServers": {
-    "webflow": {
-      "command": "npx",
-      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
-      "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
-    }
-  }
-}
-```
-
-### Claude Code
-
-Add to `~/.claude/mcp.json`:
-
-```json
-{
-  "mcpServers": {
-    "webflow": {
-      "command": "npx",
-      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
-      "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
-    }
-  }
-}
-```
-
-Then: `> List my Webflow sites`
-
-### Codex / Cursor / Windsurf / Cody
-
-Add the same config via each editor's MCP settings panel.
-
-### Claude Desktop
-
-Edit `claude_desktop_config.json` (Help → Developer → Edit Config) with the block above.
-
-> **Note:** The MCP server is functional but parameter type schemas may show as simplified shapes. A fix is tracked in the [production readiness plan](docs/production-readiness-plan.md).
 
 ## Tool Groups
 
@@ -161,27 +153,12 @@ Documented multi-step recipes included in the repo — see [skill-packs/](skill-
 | [Publish Workflow](skill-packs/publish-workflow/) | cms | Medium (publishes staged items) |
 | [Ecommerce Sync](skill-packs/ecommerce-sync/) | inventory, products, orders | High (modifies inventory) |
 
-> **Warning:** Skill packs with High mutation risk create, update, or delete real data. Test on a staging site first. No built-in guardrails prevent destructive mutations — review the prompt and tool groups before running.
-
-## Comparison
-
-| Capability | Official MCP | Composio | **webflow-agent-kit** |
-|---|---|---|---|
-| Tools | 19 | ~30 | **62** |
-| Frameworks | MCP only | LangChain | **Vercel AI SDK, LangChain, MCP, CLI** |
-| MCP clients | Desktop | — | Claude Code, Codex, Cursor, Desktop |
-| Zod validation | ❌ | ❌ | ✅ |
-| Ecommerce | ❌ | Partial | ✅ Full (products, orders, inventory) |
-| Components | ❌ | ❌ | ✅ |
-| Skill packs | ❌ | ❌ | ✅ (documented recipes) |
-| Self-hostable | ✅ | ❌ | ✅ |
-| Free | ✅ | ❌ | ✅ MIT |
+> **Warning:** Skill packs with High mutation risk create, update, or delete real data. Test on a staging site first. Skills default to `dry_run` mode — explicit confirmation is required for mutations.
 
 ## Links
 
 - **npm**: [@webflow-agent-kit](https://www.npmjs.com/org/webflow-agent-kit)
 - **GitHub**: [anilandcode/webflow-agent-kit](https://github.com/anilandcode/webflow-agent-kit)
-- **Docs**: [docs/](docs/) — Getting Started, Auth, Tool Reference, Framework Adapters, Rate Limiting, Production Readiness Plan
-- **Blog**: ["Why I built webflow-agent-kit"](docs/blog-post.md)
+- **Docs**: [docs/](docs/) — Getting Started, Auth, Tool Reference, Client Setup Guides, Safety, Rate Limiting
 
 MIT © [Anil Pervaiz](https://anilpervaiz.com) — [Flowmarc Creative](https://flowmarc.com)

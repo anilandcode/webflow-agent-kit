@@ -88,7 +88,7 @@ Add to `~/.claude/mcp.json`:
   "mcpServers": {
     "webflow": {
       "command": "npx",
-      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "args": ["-y", "@webflow-agent-kit/mcp@beta"],
       "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
     }
   }

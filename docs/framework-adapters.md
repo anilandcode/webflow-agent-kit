@@ -79,7 +79,7 @@ Add to `claude_desktop_config.json`:
   "mcpServers": {
     "webflow": {
       "command": "npx",
-      "args": ["-y", "@webflow-agent-kit/mcp@latest"],
+      "args": ["-y", "@webflow-agent-kit/mcp@beta"],
       "env": { "WEBFLOW_TOKEN": "<YOUR_TOKEN>" }
     }
   }
