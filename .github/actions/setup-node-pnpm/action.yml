@@ -1,0 +1,39 @@
+name: Setup Node.js and pnpm
+description: Sets up Node.js and activates pnpm via Corepack, with optional store caching
+
+inputs:
+  node-version:
+    description: 'Node.js version to use'
+    required: false
+    default: '22'
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+
+    - name: Enable Corepack
+      shell: bash
+      run: corepack enable
+
+    - name: Activate pnpm 9.15.4
+      shell: bash
+      run: corepack prepare pnpm@9.15.4 --activate
+
+    - name: Verify Node and pnpm
+      shell: bash
+      run: |
+        node --version
+        pnpm --version
+        echo "Expected pnpm 9.15.4 — actual: $(pnpm --version)"
+
+    - name: Cache pnpm store
+      uses: actions/cache@v4
+      with:
+        path: ~/.pnpm-store
+        key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ runner.os }}-pnpm-
