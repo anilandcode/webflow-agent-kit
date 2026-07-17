@@ -1,6 +1,6 @@
 {
   "name": "@webflow-agent-kit/mcp",
-  "version": "0.0.1",
+  "version": "0.1.0-beta.1",
   "description": "Standalone MCP server exposing all Webflow agent tools",
   "type": "module",
   "main": "dist/index.cjs",

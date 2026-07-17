@@ -1,6 +1,6 @@
 {
   "name": "@webflow-agent-kit/vercel-ai",
-  "version": "0.0.1",
+  "version": "0.1.0-beta.1",
   "description": "Plug-and-play adapter for Vercel AI SDK tool() format",
   "type": "module",
   "main": "dist/index.cjs",

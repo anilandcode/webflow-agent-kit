@@ -1,6 +1,6 @@
 {
   "name": "@webflow-agent-kit/skills",
-  "version": "0.0.1",
+  "version": "0.1.0-beta.1",
   "description": "Manifest-backed safe AI-agent workflow packs for webflow-agent-kit",
   "type": "module",
   "main": "dist/index.cjs",
