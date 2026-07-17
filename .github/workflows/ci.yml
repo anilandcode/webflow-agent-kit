@@ -53,11 +53,11 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
       - run: pnpm install --frozen-lockfile
+      - run: pnpm build
       - run: pnpm lint
       - run: pnpm format:check
       - run: pnpm typecheck
       - run: pnpm test
-      - run: pnpm build
 
   package-smoke:
     name: Package Smoke
